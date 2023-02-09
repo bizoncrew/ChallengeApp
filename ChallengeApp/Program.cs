@@ -1,28 +1,40 @@
-﻿int number = 122666;
-var numberAsString = number.ToString();     //zamiana liczby na tekst
-char[] digit = numberAsString.ToArray();    //rozbicie tekstu na pojedyńcze elementy
+﻿using ChallengeApp;
 
-Console.WriteLine($"Cyfry z liczby {number} występują w następującej ilości:");
+Employee user1 = new Employee("Marek", "Kowalski", 33);
+Employee user2 = new Employee("Anna", "Nowak", 25);
+Employee user3 = new Employee("Bill", "Clinton", 65);
 
-List<char> column1 = new List<char>();      //lista cyfr do porównania
-column1.Add('0');
-column1.Add('1');
-column1.Add('2');
-column1.Add('3');
-column1.Add('4');
-column1.Add('5');
-column1.Add('6');
-column1.Add('7');
-column1.Add('8');
-column1.Add('9');
+user1.AddScore(5);
+user1.AddScore(2);
+user1.AddScore(1);
+user1.AddScore(1);
+user1.AddScore(3);
 
-foreach (var element in column1)        //pętla elementów z listy column1
+user2.AddScore(4);
+user2.AddScore(10);
+user2.AddScore(2);
+user2.AddScore(7);
+user2.AddScore(1);
+
+user3.AddScore(9);
+user3.AddScore(6);
+user3.AddScore(3);
+user3.AddScore(1);
+user3.AddScore(5);
+
+List<Employee> users = new List<Employee>()
 {
-    int column2 = 0;                    //zmienna początkowa do kolumny drugiej
-    foreach (var character in digit)    //pętla elementów z tablicy char digit
+    user1, user2, user3
+};
+
+int maxResult = -1;
+Employee userWithMaxResult = null;
+foreach (var user in users)
+{
+    if (user.Result > maxResult)
     {
-        if (element == character)       //jeżeli  element z listy tworzącej pierwszą pętlę = elementowi z tablicy char
-            column2++;                  //powiększ o 1 zmienną początkową z kolumny drugiej
+        userWithMaxResult = user;
     }
-    Console.WriteLine(element + " => " + column2);
 }
+Console.WriteLine("Najwyższy wynik to - " + userWithMaxResult.Result + " , a osiągnął go " + userWithMaxResult.Name +" "+ userWithMaxResult.Surname + " lat " + userWithMaxResult.Age);
+Console.WriteLine("Congratulations Bill!");
