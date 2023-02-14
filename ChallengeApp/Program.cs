@@ -12,7 +12,7 @@ user1.AddScore(5);
 
 user2.AddScore(5);
 user2.AddScore(4);
-user2.AddScore(2);
+user2.AddScore(22);
 user2.AddScore(1);
 user2.AddScore(2);
 
