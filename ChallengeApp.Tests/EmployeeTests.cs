@@ -4,43 +4,43 @@
     {
         [Test]
 
-        public void WhenMinValueIsCorrect_ThenShowResult()
-        {
-            var employee = new Employee("Michał", "Kowalski");
-            employee.AddGrade(2);
-            employee.AddGrade(3);
-            employee.AddGrade(5);
-
-            var statistics = employee.GetStatistics();
-
-            Assert.AreEqual(2, statistics.Min);
-        }
-
-        [Test]
-
-        public void WhenMaxValueIsCorrect_ThenShowResult()
-        { 
-            var employee = new Employee("Michał", "Kowalski");
-            employee.AddGrade(2);
-            employee.AddGrade(3);
-            employee.AddGrade(5);
-
-            var statistics = employee.GetStatistics();
-
-            Assert.AreEqual(5, statistics.Max);
-        }
-        [Test]
-
         public void WhenAverageIsCorrect_ThenShowResult()
         {
             var employee = new Employee("Michał", "Kowalski");
-            employee.AddGrade(2);
-            employee.AddGrade(3);
-            employee.AddGrade(5);
+            employee.AddGrade('D');
+            employee.AddGrade(40);
+            employee.AddGrade(20);
+            employee.AddGrade('c');
 
             var statistics = employee.GetStatistics();
 
-            Assert.LessOrEqual(3.33, statistics.Average);
+            Assert.AreEqual(40, statistics.Average);
+        }
+
+        public void WhenMinIsCorrect_ThenShowResult()
+        {
+            var employee = new Employee("Michał", "Kowalski");
+            employee.AddGrade('D');
+            employee.AddGrade(40);
+            employee.AddGrade(20);
+            employee.AddGrade('c');
+
+            var statistics = employee.GetStatistics();
+
+            Assert.AreNotEqual(40, statistics.Min);
+        }
+
+        public void WhenMaxIsCorrect_ThenShowResult()
+        {
+            var employee = new Employee("Michał", "Kowalski");
+            employee.AddGrade('D');
+            employee.AddGrade(40);
+            employee.AddGrade(20);
+            employee.AddGrade('c');
+
+            var statistics = employee.GetStatistics();
+
+            Assert.AreEqual(60, statistics.Max);
         }
     }
 }
