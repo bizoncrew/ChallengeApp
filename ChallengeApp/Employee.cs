@@ -1,18 +1,19 @@
-﻿using System.Net.WebSockets;
+﻿using System.Diagnostics.Contracts;
+using System.Net.WebSockets;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ChallengeApp
 {
     public class Employee
     {
+        //private readonly char sex = 'M';
+        //private const char sex = 'M';    można tylko raz na początku zdefiniować w klasie czy metodzie
+
         public List<float> grades = new List<float>();
-
-        public Employee()
-        {
-
-        }
 
         public Employee(string name, string surname)
         {
+            //this.sex = 'K';  readonly można przypisać tylko na początku i  ewentualne zmienić w konstruktorze 
             this.Name = name;
             this.Surname = surname;
         }
@@ -28,60 +29,11 @@ namespace ChallengeApp
             }
             else
             {
-                Console.WriteLine("Invalid grade value");
+                throw new Exception("invalid grade value");
             }
 
         }
 
-        public void AddGrade(string grade)
-        {
-            if(float.TryParse(grade, out float result))
-            {
-                this.AddGrade(result);
-            }
-            else
-            {
-                Console.WriteLine("String is not float");
-            }
-        }
-
-        public void AddGrade(double grade)
-        {
-            if(grade <= float.MaxValue)
-            {
-                this.AddGrade((float)grade);
-            }
-            else
-            {
-                Console.WriteLine("Doble is not float");
-            }
-        }
-
-        public void AddGrade(int grade)
-        {
-            int valueInint = (int)grade;
-            if(valueInint >= 0 && valueInint <= 100)
-            {
-                this.grades.Add(grade);
-            }
-            else
-            {
-                Console.WriteLine("Int is not float");
-            }
-        }
-
-        public void AddGrade(long grade)
-        {
-            long valueInLong = (long)grade;
-            if (valueInLong >= 0 && valueInLong <= 100)
-            {
-                this.grades.Add(grade);
-            }
-            else
-            {
-                Console.WriteLine("Long is not a float");
-            }
-        }
         public void AddGrade(char grade)
         {
             switch (grade)
@@ -106,6 +58,58 @@ namespace ChallengeApp
                 case 'e':
                     this.grades.Add(20);
                     break;
+                default:
+                    throw new Exception("Wrong letter");
+            }
+        }
+
+        public void AddGrade(string grade)
+        {
+            if(float.TryParse(grade, out float result))
+            {
+                this.AddGrade(result);
+            }
+            else
+            {
+                throw new Exception("string is not float");
+            }
+        }
+
+        public void AddGrade(double grade)
+        {
+            if(grade <= float.MaxValue)
+            {
+                this.AddGrade((float)grade);
+            }
+            else
+            {
+                throw new Exception("double is not float");
+            }
+        }
+
+        public void AddGrade(int grade)
+        {
+            int valueInint = (int)grade;
+            if(valueInint >= 0 && valueInint <= 100)
+            {
+                this.grades.Add(grade);
+            }
+            else
+            {
+                throw new Exception("invalid grade value");
+            }
+        }
+
+        public void AddGrade(long grade)
+        {
+            long valueInLong = (long)grade;
+            if (valueInLong >= 0 && valueInLong <= 100)
+            {
+                this.grades.Add(grade);
+            }
+            else
+            {
+                throw new Exception("long is not float");
             }
         }
 
