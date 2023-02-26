@@ -4,18 +4,18 @@ Console.WriteLine("Witamy w programie XYZ do oceny pracowników");
 Console.WriteLine("===========================================");
 Console.WriteLine();
 
-var employee = new Employee("Michał", "Kowalski");
-
+var employee = new Employee("Marek", "Kowalski", "m");
+Console.WriteLine($"Pracownik: {employee.Name},{employee.Surname}, {employee.Sex}");
 
 while (true)
 {
-    Console.WriteLine("Podaj ocenę kolejnego pracownika: ");
+    Console.WriteLine("Podaj kolejną ocenę pracownika: ");
     Console.WriteLine("Aby zakończyć wpisz q: ");
     var input = Console.ReadLine();
     if (input == "q")
-    { 
-        break; 
-    }
+    {
+        break;
+    }  
 
     try
     {
@@ -25,8 +25,8 @@ while (true)
     {
         Console.WriteLine($"Exception catched: {e.Message}");
     }
-    
 }
+
 
 var statistics = employee.GetStatistics();
 Console.WriteLine($"Average: { statistics.Average}");

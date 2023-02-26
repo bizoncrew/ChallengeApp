@@ -1,25 +1,27 @@
-﻿using System.Diagnostics.Contracts;
-using System.Net.WebSockets;
-using System.Security.Cryptography.X509Certificates;
+﻿//private readonly char sex = 'M';
+//private const char sex = 'M';    można tylko raz na początku zdefiniować w klasie czy metodzie
 
 namespace ChallengeApp
 {
-    public class Employee
+    public class Employee : Person
     {
-        //private readonly char sex = 'M';
-        //private const char sex = 'M';    można tylko raz na początku zdefiniować w klasie czy metodzie
-
         public List<float> grades = new List<float>();
 
-        public Employee(string name, string surname)
+        public Employee(string name, string surname, string sex)
+            :base(name, surname, sex)
         {
-            //this.sex = 'K';  readonly można przypisać tylko na początku i  ewentualne zmienić w konstruktorze 
-            this.Name = name;
-            this.Surname = surname;
+            switch(sex)
+            {
+                case "m" or "M" or "mężczyzna" or "Mężczyzna":
+                    this.Sex = "Mężczyzna";
+                    break;
+                case "k" or "K" or "kobieta" or "Kobieta":
+                    this.Sex = "Kobieta";
+                    break;
+                default:
+                    throw new Exception("Wrong choice");
+            }
         }
-
-        public string Name { get; private set; }
-        public string Surname { get; private set; }
 
         public void AddGrade(float grade)
         {
@@ -31,7 +33,6 @@ namespace ChallengeApp
             {
                 throw new Exception("invalid grade value");
             }
-
         }
 
         public void AddGrade(char grade)
@@ -65,9 +66,13 @@ namespace ChallengeApp
 
         public void AddGrade(string grade)
         {
-            if(float.TryParse(grade, out float result))
+            if (float.TryParse(grade, out float result))
             {
                 this.AddGrade(result);
+            }
+            else if(char.TryParse(grade, out char character))
+            {
+                this.AddGrade(character);
             }
             else
             {
@@ -77,40 +82,20 @@ namespace ChallengeApp
 
         public void AddGrade(double grade)
         {
-            if(grade <= float.MaxValue)
-            {
-                this.AddGrade((float)grade);
-            }
-            else
-            {
-                throw new Exception("double is not float");
-            }
+            float gradeAsFloat = (float)grade;
+            this.AddGrade(gradeAsFloat);
         }
 
         public void AddGrade(int grade)
         {
-            int valueInint = (int)grade;
-            if(valueInint >= 0 && valueInint <= 100)
-            {
-                this.grades.Add(grade);
-            }
-            else
-            {
-                throw new Exception("invalid grade value");
-            }
+            float gradeAsFloat = (float)grade;
+            this.AddGrade(gradeAsFloat);
         }
 
         public void AddGrade(long grade)
         {
-            long valueInLong = (long)grade;
-            if (valueInLong >= 0 && valueInLong <= 100)
-            {
-                this.grades.Add(grade);
-            }
-            else
-            {
-                throw new Exception("long is not float");
-            }
+            float gradeAsFloat = (float)grade;
+            this.AddGrade(gradeAsFloat);
         }
 
         public Statistics GetStatistics()
