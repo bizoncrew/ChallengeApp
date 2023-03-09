@@ -1,27 +1,18 @@
-﻿//private readonly char sex = 'M';
-//private const char sex = 'M';    można tylko raz na początku zdefiniować w klasie czy metodzie
-
-namespace ChallengeApp
+﻿namespace ChallengeApp
 {
-    public class Employee : Person
+    public class Employee : IEmployee
     {
         public List<float> grades = new List<float>();
 
-        public Employee(string name, string surname, string sex)
-            :base(name, surname, sex)
+        public Employee(string name, string surname)
+
         {
-            switch(sex)
-            {
-                case "m" or "M" or "mężczyzna" or "Mężczyzna":
-                    this.Sex = "Mężczyzna";
-                    break;
-                case "k" or "K" or "kobieta" or "Kobieta":
-                    this.Sex = "Kobieta";
-                    break;
-                default:
-                    throw new Exception("Wrong choice");
-            }
+            this.Name = name;
+            this.Surname = surname;
         }
+
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
 
         public void AddGrade(float grade)
         {
